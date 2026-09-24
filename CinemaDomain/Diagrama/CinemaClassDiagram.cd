@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="CinemaDomain.Filme">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIACAAAQAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Filme.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CinemaDomain.Sessao">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAgABAAAAAEAAAAAAA=</HashCode>
+      <FileName>Sessao.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Filme" />
+      <Property Name="Sala" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CinemaDomain.Sala">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAABAAAAAACAAAAAAAAAABAAA=</HashCode>
+      <FileName>Sala.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CinemaDomain.Ingresso">
+    <Position X="10.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAICAAAAAAAAAEAAAAEACAAAAAAAAAAA=</HashCode>
+      <FileName>Ingresso.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Sessao" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CinemaDomain.BaseEntity">
+    <Position X="8" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CinemaDomain.Genero">
+    <Position X="12.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Genero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CinemaDomain.IngressoItem">
+    <Position X="14.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAABAA=</HashCode>
+      <FileName>IngressoItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Ingresso" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
