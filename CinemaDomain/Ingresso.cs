@@ -8,7 +8,7 @@ namespace CinemaDomain
     public class Ingresso : BaseEntity
     {
 
-        public int Documento { get; set; }
+        public string Documento { get; set; }
 
 
         public Sessao Sessao { get; set; }
