@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="CinemaDomain/CinemaDomain.csproj" />
+  <Project Path="CinemaRepository/CinemaRepository.csproj" Id="7ba4e227-2dcd-459b-b759-709acb28296b" />
   <Project Path="CinemaTest/CinemaTest.csproj" />
 </Solution>
