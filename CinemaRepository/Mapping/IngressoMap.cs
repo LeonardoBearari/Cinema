@@ -14,7 +14,7 @@ namespace CinemaRepository.Mapping
             builder.ToTable("Ingresso");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.DataCompra).IsRequired(true);
-            builder.Property(x => x.Sessao).IsRequired(true);
+            builder.HasOne(x => x.Sessao);
             builder.Property(x => x.ValorTotal).IsRequired(true);
             builder.Property(x => x.FormaPagamento).HasMaxLength(50).IsRequired(true);
             builder.HasMany(x => x.IngressoItens).WithOne(x=> x.Ingresso).OnDelete(DeleteBehavior.Cascade).IsRequired(true);
@@ -25,7 +25,7 @@ namespace CinemaRepository.Mapping
     {
         public void Configure(EntityTypeBuilder<IngressoItem> builder)
         {
-            builder.ToTable("Ingresso");
+            builder.ToTable("IngressoItem");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Assento).IsRequired(true);
             builder.Property(x => x.Fileira).IsRequired(true);

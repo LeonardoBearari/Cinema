@@ -157,10 +157,10 @@ namespace CinemaTest
                 var sala1 = db.Sala.FirstOrDefault(x => x.Id == 1);
                 var sala2 = db.Sala.FirstOrDefault(x => x.Id == 2);
 
-                var dataSessao1 = new DateTime(2026, 10, 15, 18, 30, 0); // 15/10/2026 às 18:30
-                var dataSessao2 = new DateTime(2026, 10, 15, 21, 00, 0); // 15/10/2026 às 21:00
+                var dataSessao1 = new DateTime(2026, 10, 15, 18, 30, 0); 
+                var dataSessao2 = new DateTime(2026, 10, 15, 21, 00, 0); 
 
-                var sessao = new Sessao { Id = 1, Filme = filmeGenteGrande, Data = dataSessao1, Preco = 30, Sala = sala1 }; // perguntar como coloca data normal pro murilo
+                var sessao = new Sessao { Id = 1, Filme = filmeGenteGrande, Data = dataSessao1, Preco = 30, Sala = sala1 }; 
                 db.Sessao.Add(sessao);
                 sessao = new Sessao { Id = 2, Filme = filmeGhost, Data = dataSessao2, Preco = 30, Sala = sala2 };
                 db.Sessao.Add(sessao);

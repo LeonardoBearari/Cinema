@@ -15,7 +15,7 @@ namespace CinemaRepository.Mapping
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Nome).IsRequired(true).HasMaxLength(50);
             builder.Property(x => x.Classificacao).IsRequired(true).HasMaxLength(20);
-            builder.HasOne(x => x.Nome).WithMany().IsRequired(true); // relacionamento com genero
+            builder.HasOne(x => x.Genero).WithMany().IsRequired(true); // relacionamento com genero
             builder.Property(x => x.Duracao).HasDefaultValue(20);
         }
     }

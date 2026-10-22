@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens.Experimental;
 
 namespace CinemaService.Base
 {
-    internal class BaseService<TypeEntity> : IBaseService<TypeEntity> where TypeEntity : IBaseEntity
+    public class BaseService<TypeEntity> : IBaseService<TypeEntity> where TypeEntity : IBaseEntity
     {
         private readonly IBaseRepository<TypeEntity> _baseRepository;
         private readonly IMapper _mapper;
@@ -36,12 +36,14 @@ namespace CinemaService.Base
 
         public TypeOutputModel Read<TypeOutputModel>(int id) where TypeOutputModel : class
         {
-            throw new NotImplementedException();
+            var entity = _baseRepository.Read(id);
+            return _mapper.Map<TypeOutputModel>(entity); 
         }
 
         public IEnumerable<TypeOutputModel> ReadAll<TypeOutputModel>() where TypeOutputModel : class
         {
-            throw new NotImplementedException();
+            var entities = _baseRepository.ReadAll();
+            return entities.Select(e => _mapper.Map<TypeOutputModel>(e));
         }
 
         public TypeOutputModel Update<TypeInputModel, TypeOutputModel, TypeValidator>(TypeEntity entity)
@@ -49,13 +51,16 @@ namespace CinemaService.Base
                     where TypeOutputModel : class
                     where TypeValidator : AbstractValidator<TypeEntity>
         {
-            throw new NotImplementedException();
+            var e = _mapper.Map<TypeEntity>(entity);
+            Validate(e, Activator.CreateInstance<TypeValidator>());
+            _baseRepository.Update(e);
+            return _mapper.Map<TypeOutputModel>(e);
         }
 
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _baseRepository.Delete(id);
         }
     }
         

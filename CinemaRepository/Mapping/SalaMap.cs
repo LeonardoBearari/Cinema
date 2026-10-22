@@ -11,7 +11,7 @@ namespace CinemaRepository.Mapping
     {
     public void Configure(EntityTypeBuilder<Sala> builder)
         {
-            builder.ToTable("Filme");
+            builder.ToTable("Sala");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Numero).IsRequired(true);
             builder.Property(x => x.Capacidade).IsRequired(true);

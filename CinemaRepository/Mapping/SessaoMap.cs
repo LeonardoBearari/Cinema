@@ -14,7 +14,7 @@ namespace CinemaRepository.Mapping
             builder.ToTable("Sessao");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Data).IsRequired(true);
-            builder.Property(x => x.Sala).IsRequired(true);
+            builder.HasOne(x => x.Sala);
             builder.Property(x => x.Preco).IsRequired(true);
         }
     }

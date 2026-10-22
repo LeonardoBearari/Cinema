@@ -12,13 +12,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.13" />
     <PackageReference Include="MSTest" Version="4.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CinemaDomain\CinemaDomain.csproj" />
+    <ProjectReference Include="..\CinemaRepository\CinemaRepository.csproj" />
+    <ProjectReference Include="..\CinemaService\CinemaService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

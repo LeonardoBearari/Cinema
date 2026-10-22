@@ -18,7 +18,7 @@ namespace CinemaRepository.Context
         public DbSet<Ingresso> Ingresso { get; set; }
         public DbSet<IngressoItem> IngressoItem { get; set; }
 
-        public MyDBContext()
+        public MyDBContext(DbContextOptions<MyDBContext> options) : base(options)
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             Database.EnsureCreated();
