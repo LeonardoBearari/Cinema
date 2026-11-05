@@ -50,11 +50,11 @@
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(151, 208);
+            buttonCancelar.Location = new Point(103, 162);
             // 
             // buttonSalvar
             // 
-            buttonSalvar.Location = new Point(267, 190);
+            buttonSalvar.Location = new Point(207, 162);
             // 
             // txtId
             // 
@@ -99,7 +99,7 @@
             txtNome.HideSelection = true;
             txtNome.Hint = "Nome";
             txtNome.LeadingIcon = null;
-            txtNome.Location = new Point(33, 114);
+            txtNome.Location = new Point(33, 105);
             txtNome.MaxLength = 32767;
             txtNome.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             txtNome.Name = "txtNome";
