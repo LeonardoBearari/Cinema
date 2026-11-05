@@ -1,33 +1,30 @@
 ﻿using CinemaApp.Cadastros;
+using CinemaApp.Models;
 using CinemaDomain;
+using AutoMapper;
 using CinemaRepository.Base;
 using CinemaRepository.Context;
 using CinemaService.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CinemaApp.Infra
 {
-    public class ConfigureDI
+    public static class ConfigureDI
     {
         public static ServiceCollection Services;
         public static IServiceProvider ServiceProvider;
-
         public static void Configure()
         {
             Services = new ServiceCollection();
 
-            #region Banco de Dados Injeção de Dependencias
+            #region Banco de Dados Injeção de Dependência            
             var strCon = File.ReadAllText("Config/ConfigDB.txt");
             Services.AddDbContext<MyDBContext>(options => options.UseNpgsql(strCon));
             #endregion
 
-
-            #region Repositorio Injeção de dependencia
+            #region Repositórios Injeção de Dependência
             Services.AddScoped<IBaseRepository<Genero>, BaseRepository<Genero>>();
             Services.AddScoped<IBaseRepository<Filme>, BaseRepository<Filme>>();
             Services.AddScoped<IBaseRepository<Sala>, BaseRepository<Sala>>();
@@ -35,7 +32,7 @@ namespace CinemaApp.Infra
             Services.AddScoped<IBaseRepository<Ingresso>, BaseRepository<Ingresso>>();
             #endregion
 
-            #region Serviços injeção de dependencia
+            #region Serviços Injeção de Dependência
             Services.AddScoped<IBaseService<Genero>, BaseService<Genero>>();
             Services.AddScoped<IBaseService<Filme>, BaseService<Filme>>();
             Services.AddScoped<IBaseService<Sala>, BaseService<Sala>>();
@@ -43,18 +40,29 @@ namespace CinemaApp.Infra
             Services.AddScoped<IBaseService<Ingresso>, BaseService<Ingresso>>();
             #endregion
 
-            #region AutoMapper Injeção de Dependencia
-            Services.AddSingleton(new AutoMapper.MapperConfiguration(cfg =>
+            #region AutoMapper Injeção de Dependência
+            var mapperConfig = new MapperConfiguration(config =>
             {
-                cfg.CreateMap<Genero, Genero>();
-                cfg.CreateMap<Filme, Filme>();
-                cfg.CreateMap<Sala, Sala>();
-                cfg.CreateMap<Sessao, Sessao>();
-                cfg.CreateMap<Ingresso, Ingresso>();
-            }, NullLoggerFactory.Instance).CreateMapper());
+                config.CreateMap<Genero, GeneroViewModel>().ReverseMap();
+                config.CreateMap<Filme, FilmeViewModel>()
+                    .ForMember(dest => dest.GeneroId, opt => opt.MapFrom(src => src.Genero.Id))
+                    .ForMember(dest => dest.GeneroNome, opt => opt.MapFrom(src => src.Genero.Nome));
+                config.CreateMap<Sala, SalaViewModel>().ReverseMap();
+                config.CreateMap<Sessao, SessaoViewModel>().ReverseMap();
+                config.CreateMap<Ingresso, IngressoViewModel>().ReverseMap();
+                config.CreateMap<IngressoItem, IngressoItemViewModel>().ReverseMap();
+            }, NullLoggerFactory.Instance);
+
+            Services.AddSingleton(mapperConfig.CreateMapper());
+
             #endregion
 
-            Services.AddTransient<CadastroGenero>();
+            #region Injeção de Dependência de Formulários
+            Services.AddTransient<CadastroGenero, CadastroGenero>();
+            Services.AddTransient<CadastroFilme, CadastroFilme>();
+            Services.AddTransient<CadastroSala, CadastroSala>();
+            Services.AddTransient<CadastroSessao, CadastroSessao>();
+            #endregion
 
             ServiceProvider = Services.BuildServiceProvider();
         }

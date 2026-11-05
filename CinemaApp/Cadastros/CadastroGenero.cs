@@ -43,6 +43,8 @@ namespace CinemaApp.Cadastros
                     PreencheObjeto(genero);
                     _generoService.Create<Genero, Genero, GeneroValidator>(genero);
                 }
+
+                IsEditMode = false;
                 TabControlCadastro.SelectedIndex = 1;
             }
             catch (Exception ex)
@@ -60,6 +62,12 @@ namespace CinemaApp.Cadastros
             {
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        protected override void Novo()
+        {
+            base.Novo();
+            txtId.Clear();
         }
 
         protected override void CarregaGrid()

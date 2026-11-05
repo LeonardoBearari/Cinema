@@ -58,27 +58,30 @@
             // generoToolStripMenuItem
             // 
             generoToolStripMenuItem.Name = "generoToolStripMenuItem";
-            generoToolStripMenuItem.Size = new Size(180, 22);
+            generoToolStripMenuItem.Size = new Size(112, 22);
             generoToolStripMenuItem.Text = "Genero";
             generoToolStripMenuItem.Click += gêneroToolStripMenuItem_Click;
             // 
             // filmeToolStripMenuItem
             // 
             filmeToolStripMenuItem.Name = "filmeToolStripMenuItem";
-            filmeToolStripMenuItem.Size = new Size(180, 22);
+            filmeToolStripMenuItem.Size = new Size(112, 22);
             filmeToolStripMenuItem.Text = "Filme";
+            filmeToolStripMenuItem.Click += filmeToolStripMenuItem_Click;
             // 
             // salaToolStripMenuItem
             // 
             salaToolStripMenuItem.Name = "salaToolStripMenuItem";
-            salaToolStripMenuItem.Size = new Size(180, 22);
+            salaToolStripMenuItem.Size = new Size(112, 22);
             salaToolStripMenuItem.Text = "Sala";
+            salaToolStripMenuItem.Click += salaToolStripMenuItem_Click;
             // 
             // sessaoToolStripMenuItem
             // 
             sessaoToolStripMenuItem.Name = "sessaoToolStripMenuItem";
-            sessaoToolStripMenuItem.Size = new Size(180, 22);
+            sessaoToolStripMenuItem.Size = new Size(112, 22);
             sessaoToolStripMenuItem.Text = "Sessao";
+            sessaoToolStripMenuItem.Click += sessaoToolStripMenuItem_Click;
             // 
             // vendaToolStripMenuItem
             // 
@@ -104,6 +107,7 @@
             Name = "FormPrincipal";
             Text = "Sistema De Gerenciamento";
             WindowState = FormWindowState.Maximized;
+            FormClosing += FormPrincipal_FormClosing;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

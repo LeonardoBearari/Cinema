@@ -17,7 +17,7 @@ namespace CinemaDomain
         public Genero Genero { get; set; }
 
 
-        public int Duracao { get; set; }
+        public decimal Duracao { get; set; }
 
     }
 }

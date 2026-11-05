@@ -13,6 +13,9 @@ namespace CinemaApp.Base
         public CadastroBase()
         {
             InitializeComponent();
+            dataGridViewConsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewConsulta.MultiSelect = false;
+            dataGridViewConsulta.ReadOnly = true;
         }
         #endregion
 
@@ -35,9 +38,21 @@ namespace CinemaApp.Base
         {
             Novo();
         }
-        private void buttonEditar_Click(object sender, EventArgs e)
+        protected virtual void Editar()
         {
-            Editar();
+            if (dataGridViewConsulta.SelectedRows.Count > 0)
+            {
+                IsEditMode = true;
+                var row = dataGridViewConsulta.SelectedRows[0];
+                CarregarRegistro(row);
+                TabControlCadastro.SelectedIndex = 0;
+                TabControlCadastro.Focus();
+            }
+            else
+            {
+                MessageBox.Show("Selecione um registro para editar!", "Editar",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
         private void buttonExcluir_Click(object sender, EventArgs e)
         {
@@ -47,8 +62,9 @@ namespace CinemaApp.Base
                                             MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    var id = (int)dataGridViewConsulta.SelectedRows[0].Cells[0].Value;
+                    var id = (int)dataGridViewConsulta.SelectedRows[0].Cells["Id"].Value;
                     Deletar(id);
+                    CarregaGrid();
                 }
             }
             else
@@ -81,21 +97,7 @@ namespace CinemaApp.Base
             TabControlCadastro.SelectedIndex = 0;
             TabControlCadastro.Focus();
         }
-        protected virtual void Editar()
-        {
-            if (dataGridViewConsulta.SelectedRows.Count > 0)
-            {
-                var row = dataGridViewConsulta.SelectedRows[0];
-                CarregarRegistro(row);
-                TabControlCadastro.SelectedIndex = 0;
-                TabControlCadastro.Focus();
-            }
-            else
-            {
-                MessageBox.Show("Selecione um registro para editar!", "Editar",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
+
         protected virtual void Deletar(int id)
         {
             throw new NotImplementedException();
@@ -119,5 +121,9 @@ namespace CinemaApp.Base
         #endregion
 
 
+        private void buttonEditar_Click(object sender, EventArgs e)
+        {
+            Editar();
+        }
     }
 }
