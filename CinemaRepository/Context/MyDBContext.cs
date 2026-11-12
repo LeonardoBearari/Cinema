@@ -33,6 +33,12 @@ namespace CinemaRepository.Context
             modelBuilder.Entity<Sessao>(new SessaoMap().Configure);
             modelBuilder.Entity<Ingresso>(new IngressoMap().Configure);
             modelBuilder.Entity<IngressoItem>(new IngressoItemMap().Configure);
+
+            modelBuilder.Entity<Filme>().Navigation(f => f.Genero).AutoInclude();
+
+            modelBuilder.Entity<Sessao>().Navigation(s => s.Filme).AutoInclude();
+
+            modelBuilder.Entity<Sessao>().Navigation(s => s.Sala).AutoInclude();
         }
 
     }

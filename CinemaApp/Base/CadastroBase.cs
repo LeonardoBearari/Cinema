@@ -10,13 +10,30 @@ namespace CinemaApp.Base
         #endregion
 
         #region Construtor
+
         public CadastroBase()
         {
             InitializeComponent();
-            dataGridViewConsulta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewConsulta.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
             dataGridViewConsulta.MultiSelect = false;
             dataGridViewConsulta.ReadOnly = true;
+
+            dataGridViewConsulta.CellDoubleClick += (sender, e) =>
+            {
+                if (e.RowIndex >= 0)
+                {
+                    dataGridViewConsulta.ClearSelection();
+
+                    dataGridViewConsulta.Rows[e.RowIndex].Selected = true;
+
+                    Editar();
+                }
+            };
         }
+
         #endregion
 
         #region Eventos de tela

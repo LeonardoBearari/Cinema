@@ -19,6 +19,9 @@ namespace CinemaApp.Cadastros
             _generoService = generoService;
             InitializeComponent();
             CarregaComboGeneros();
+            numDuracao.Minimum = 1;
+            numDuracao.Maximum = 600;
+            txtId.ReadOnly = true;
         }
 
         private void CarregaComboGeneros()
@@ -31,6 +34,18 @@ namespace CinemaApp.Cadastros
             cboGenero.SelectedIndex = -1;
         }
 
+        protected override void Novo()
+        {
+            base.Novo();
+
+            txtId.Clear();
+            txtNome.Clear();
+
+            cboClassificacao.SelectedIndex = -1;
+            cboGenero.SelectedIndex = -1;
+
+            numDuracao.Value = numDuracao.Minimum;
+        }
         private void PreencheObjeto(Filme filme)
         {
             filme.Nome = txtNome.Text;

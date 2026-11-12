@@ -20,8 +20,7 @@ namespace CinemaApp.Cadastros
         private readonly IBaseService<Sessao> _sessaoService;
         private readonly IBaseService<Filme> _filmeService;
         private readonly IBaseService<Sala> _salaService;
-        private List<Sessao> _sessoes;
-
+        private List<SessaoViewModel> _sessoes;
         public CadastroSessao(IBaseService<Sessao> sessaoService,
             IBaseService<Filme> filmeService, IBaseService<Sala> salaService)
         {
@@ -60,10 +59,22 @@ namespace CinemaApp.Cadastros
 
         private decimal ObterPreco()
         {
-            if (decimal.TryParse(numPreco.Text, NumberStyles.Number, CultureInfo.CurrentCulture, out var preco))
-                return preco;
+            string numeros = new string(
+                numPreco.Text.Where(char.IsDigit).ToArray()
+            );
 
-            throw new InvalidOperationException("Preço deve ser informado em um formato válido.");
+            if (string.IsNullOrEmpty(numeros))
+            {
+                throw new InvalidOperationException(
+                    "Preço deve ser informado!");
+            }
+
+            decimal preco = decimal.Parse(
+                numeros,
+                CultureInfo.InvariantCulture
+            ) / 100m;
+
+            return preco;
         }
 
         private void PreencheTela(Sessao sessao)
@@ -124,14 +135,29 @@ namespace CinemaApp.Cadastros
             numPreco.Clear();
         }
 
+
         protected override void CarregaGrid()
         {
-            _sessoes = _sessaoService.ReadAll<Sessao>().ToList();
+            _sessoes = _sessaoService
+                .ReadAll<SessaoViewModel>()
+                .ToList();
+
             dataGridViewConsulta.DataSource = _sessoes;
 
-            if (dataGridViewConsulta.Columns["Data"] != null)
-                dataGridViewConsulta.Columns["Data"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            if (dataGridViewConsulta.Columns["FilmeNome"] != null)
+            {
+                dataGridViewConsulta.Columns["FilmeNome"]
+                    .AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.Fill;
+            }
+
+            if (dataGridViewConsulta.Columns["FilmeId"] != null)
+                dataGridViewConsulta.Columns["FilmeId"].Visible = false;
+
+            if (dataGridViewConsulta.Columns["SalaId"] != null)
+                dataGridViewConsulta.Columns["SalaId"].Visible = false;
         }
+
 
         protected override void CarregarRegistro(DataGridViewRow row)
         {

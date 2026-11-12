@@ -14,7 +14,7 @@ namespace CinemaService.Validators
             RuleFor(s => s.Sala).NotNull().WithMessage("Sala deve ser informada");
             RuleFor(s => s.Data).NotEmpty().WithMessage("Data deve ser informada").NotNull().WithMessage("Data deve ser informada")
                 .Must(d => d > DateTime.Now).WithMessage("Data da sessão deve ser no futuro");
-            RuleFor(s => s.Preco).GreaterThanOrEqualTo(0).WithMessage("Preço da sessão deve ser maior ou igual a 0!");
+            RuleFor(s => s.Preco).GreaterThan(0).WithMessage("Preço da sessão deve ser maior que 0!");
         }
     }
 }

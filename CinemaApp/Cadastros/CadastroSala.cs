@@ -22,6 +22,15 @@ namespace CinemaApp.Cadastros
         {
             _salaService = salaService;
             InitializeComponent();
+
+            numNumeroSala.Minimum = 1;
+            numCapacidade.Minimum = 1;
+            numFileira.Minimum = 1;
+            numAssentos.Minimum = 1;
+
+            numCapacidade.Maximum = 1000;
+            numFileira.Maximum = 100;
+            numAssentos.Maximum = 100;
         }
 
         private void PreencheObjeto(Sala sala)

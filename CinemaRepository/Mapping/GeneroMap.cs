@@ -13,7 +13,7 @@ namespace CinemaRepository.Mapping
         {
             builder.ToTable("Genero");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Nome).HasColumnName("NomeDoGenero").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Nome).HasColumnName("NomeDoGenero").IsRequired(true).HasMaxLength(50);
         }
     }
 }

@@ -48,10 +48,18 @@ namespace CinemaApp.Infra
                     .ForMember(dest => dest.GeneroId, opt => opt.MapFrom(src => src.Genero.Id))
                     .ForMember(dest => dest.GeneroNome, opt => opt.MapFrom(src => src.Genero.Nome));
                 config.CreateMap<Sala, SalaViewModel>().ReverseMap();
-                config.CreateMap<Sessao, SessaoViewModel>().ReverseMap();
-                config.CreateMap<Ingresso, IngressoViewModel>().ReverseMap();
-                config.CreateMap<IngressoItem, IngressoItemViewModel>().ReverseMap();
-            }, NullLoggerFactory.Instance);
+                config.CreateMap<Sessao, SessaoViewModel>()
+                    .ForMember(dest => dest.FilmeNome,
+                        opt => opt.MapFrom(src => src.Filme.Nome))
+                    .ForMember(dest => dest.FilmeId,
+                        opt => opt.MapFrom(src => src.Filme.Id))
+                    .ForMember(dest => dest.SalaId,
+                        opt => opt.MapFrom(src => src.Sala.Id))
+                    .ForMember(dest => dest.SalaNome,
+                        opt => opt.MapFrom(src => src.Sala.Numero.ToString()));
+                                config.CreateMap<Ingresso, IngressoViewModel>().ReverseMap();
+                                config.CreateMap<IngressoItem, IngressoItemViewModel>().ReverseMap();
+                            }, NullLoggerFactory.Instance);
 
             Services.AddSingleton(mapperConfig.CreateMapper());
 
