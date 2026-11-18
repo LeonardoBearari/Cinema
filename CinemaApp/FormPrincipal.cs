@@ -7,10 +7,17 @@ namespace CinemaApp
 {
     public partial class FormPrincipal : MaterialForm
     {
+
         public FormPrincipal()
         {
             InitializeComponent();
+
+            ingressoToolStripMenuItem.Click += (sender, e) =>
+            {
+                ExibeFormulario<CadastroIngresso>();
+            };
         }
+
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -53,6 +60,8 @@ namespace CinemaApp
         {
             ExibeFormulario<CadastroSessao>();
         }
+
+
     }
 }
         

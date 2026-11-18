@@ -44,22 +44,18 @@ namespace CinemaApp.Infra
             var mapperConfig = new MapperConfiguration(config =>
             {
                 config.CreateMap<Genero, GeneroViewModel>().ReverseMap();
+
                 config.CreateMap<Filme, FilmeViewModel>()
                     .ForMember(dest => dest.GeneroId, opt => opt.MapFrom(src => src.Genero.Id))
                     .ForMember(dest => dest.GeneroNome, opt => opt.MapFrom(src => src.Genero.Nome));
+
                 config.CreateMap<Sala, SalaViewModel>().ReverseMap();
-                config.CreateMap<Sessao, SessaoViewModel>()
-                    .ForMember(dest => dest.FilmeNome,
-                        opt => opt.MapFrom(src => src.Filme.Nome))
-                    .ForMember(dest => dest.FilmeId,
-                        opt => opt.MapFrom(src => src.Filme.Id))
-                    .ForMember(dest => dest.SalaId,
-                        opt => opt.MapFrom(src => src.Sala.Id))
-                    .ForMember(dest => dest.SalaNome,
-                        opt => opt.MapFrom(src => src.Sala.Numero.ToString()));
-                                config.CreateMap<Ingresso, IngressoViewModel>().ReverseMap();
-                                config.CreateMap<IngressoItem, IngressoItemViewModel>().ReverseMap();
-                            }, NullLoggerFactory.Instance);
+
+                config.CreateMap<Sessao, SessaoViewModel>().ForMember(d => d.FilmeId, o => o.MapFrom(s => s.Filme.Id)).ForMember(d => d.FilmeNome, o => o.MapFrom(s => s.Filme.Nome)).ForMember(d => d.Classificacao, o => o.MapFrom(s => s.Filme.Classificacao)).ForMember(d => d.SalaId, o => o.MapFrom(s => s.Sala.Id)).ForMember(d => d.SalaNome, o => o.MapFrom(s => s.Sala.Numero.ToString()));
+
+                config.CreateMap<Ingresso, IngressoViewModel>().ForMember(d => d.SessaoId, o => o.MapFrom(i => i.Sessao.Id)).ForMember(d => d.Filme, o => o.MapFrom(i => i.Sessao.Filme.Nome)).ForMember(d => d.Classificacao, o => o.MapFrom(i => i.Sessao.Filme.Classificacao)).ForMember(d => d.DataVenda, o => o.MapFrom(i => i.DataCompra));
+
+                config.CreateMap<IngressoItem, IngressoItemViewModel>().ReverseMap(); }, NullLoggerFactory.Instance);
 
             Services.AddSingleton(mapperConfig.CreateMapper());
 
@@ -70,6 +66,7 @@ namespace CinemaApp.Infra
             Services.AddTransient<CadastroFilme, CadastroFilme>();
             Services.AddTransient<CadastroSala, CadastroSala>();
             Services.AddTransient<CadastroSessao, CadastroSessao>();
+            Services.AddTransient<CadastroIngresso>();
             #endregion
 
             ServiceProvider = Services.BuildServiceProvider();

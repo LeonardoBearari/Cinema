@@ -14,5 +14,8 @@ public class SessaoViewModel
     public string SalaNome { get; set; } = string.Empty;
 
     public DateTime Data { get; set; }
+    public string DataFormatada =>
+    Data.ToString("dd/MM/yyyy HH:mm");
     public decimal Preco { get; set; }
+    public string Classificacao { get; set; } = string.Empty;
 }
