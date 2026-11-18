@@ -24,6 +24,25 @@ namespace CinemaApp.Cadastros
         {
             InitializeComponent();
 
+            buttonSalvar.Anchor =
+        AnchorStyles.Bottom | AnchorStyles.Right;
+
+            buttonCancelar.Anchor =
+                AnchorStyles.Bottom | AnchorStyles.Right;
+
+            buttonSalvar.Location = new Point(
+                tabPageCadastro.ClientSize.Width
+                    - buttonSalvar.Width - 15,
+                tabPageCadastro.ClientSize.Height
+                    - buttonSalvar.Height - 15
+            );
+
+            buttonCancelar.Location = new Point(
+                buttonSalvar.Left - buttonCancelar.Width - 10,
+                buttonSalvar.Top
+            );
+
+
             ConfigurarControles();
         }
 
@@ -507,9 +526,8 @@ namespace CinemaApp.Cadastros
                     MessageBoxIcon.Information
                 );
 
-                IsEditMode = false;
+                LimpaCampos();
 
-                // Vai para a aba Consulta
                 TabControlCadastro.SelectedIndex = 1;
 
                 CarregaGrid();
@@ -593,6 +611,22 @@ namespace CinemaApp.Cadastros
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+        protected override void LimpaCampos()
+        {
+            base.LimpaCampos();
 
+            _itens.Clear();
+
+            cboFilme.SelectedIndex = -1;
+            cboSessao.DataSource = null;
+            cboFormaPagamento.SelectedIndex = -1;
+
+            txtId.Clear();
+            txtDocumento.Clear();
+            txtClassificacao.Clear();
+            txtPreco.Clear();
+
+            AtualizaGridItens();
+        }
     }
 }

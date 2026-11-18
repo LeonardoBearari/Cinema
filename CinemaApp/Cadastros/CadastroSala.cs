@@ -31,6 +31,11 @@ namespace CinemaApp.Cadastros
             numCapacidade.Maximum = 1000;
             numFileira.Maximum = 100;
             numAssentos.Maximum = 100;
+
+            numFileira.ValueChanged += AtualizarCapacidade;
+            numAssentos.ValueChanged += AtualizarCapacidade;
+
+            numCapacidade.ReadOnly = true;
         }
 
         private void PreencheObjeto(Sala sala)
@@ -113,6 +118,12 @@ namespace CinemaApp.Cadastros
             var id = Convert.ToInt32(row.Cells["Id"].Value);
             var sala = _salaService.ReadById<Sala>(id);
             PreencheTela(sala);
+        }
+
+        private void AtualizarCapacidade(object? sender, EventArgs e)
+        {
+            numCapacidade.Value =
+                numFileira.Value * numAssentos.Value;
         }
     }
 }

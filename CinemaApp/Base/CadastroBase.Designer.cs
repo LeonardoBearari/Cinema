@@ -247,6 +247,7 @@
             Controls.Add(TabControlCadastro);
             DrawerTabControl = TabControlCadastro;
             Name = "CadastroBase";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "CadastroBase";
             TabControlCadastro.ResumeLayout(false);
             tabPageCadastro.ResumeLayout(false);

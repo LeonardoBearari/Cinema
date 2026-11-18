@@ -33,16 +33,36 @@ namespace CinemaApp.Cadastros
             CriarMapa(fileiras, assentosPorFileira);
         }
 
+
         private void CriarMapa(int fileiras, int assentosPorFileira)
         {
-            var painel = new TableLayoutPanel
+            // Painel principal
+            var painelPrincipal = new Panel
             {
                 Dock = DockStyle.Fill,
                 AutoScroll = true,
+                BackColor = Color.FromArgb(245, 245, 245)
+            };
+
+            // Tabela com os assentos
+            var tabela = new TableLayoutPanel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 ColumnCount = assentosPorFileira,
                 RowCount = fileiras,
-                Padding = new Padding(15)
+                Padding = new Padding(15),
+                BackColor = Color.Transparent
             };
+
+            // Define tamanho de cada célula
+            for (int i = 0; i < assentosPorFileira; i++)
+                tabela.ColumnStyles.Add(
+                    new ColumnStyle(SizeType.Absolute, 58));
+
+            for (int i = 0; i < fileiras; i++)
+                tabela.RowStyles.Add(
+                    new RowStyle(SizeType.Absolute, 54));
 
             for (int i = 0; i < fileiras; i++)
             {
@@ -50,22 +70,21 @@ namespace CinemaApp.Cadastros
                 {
                     string codigo = $"{i + 1}-{j + 1}";
 
+                    bool ocupado = _ocupados.Contains(codigo);
+
                     var botao = new Button
                     {
                         Text = codigo,
-                        Size = new Size(55, 45),
-                        Margin = new Padding(4),
+                        Width = 52,
+                        Height = 46,
+                        Margin = new Padding(3),
                         FlatStyle = FlatStyle.Flat,
+                        BackColor = ocupado
+                            ? Color.LightGray
+                            : Color.LightGreen,
+                        Enabled = !ocupado,
                         Tag = codigo
                     };
-
-                    bool ocupado = _ocupados.Contains(codigo);
-
-                    botao.BackColor = ocupado
-                        ? Color.Gray
-                        : Color.LightGreen;
-
-                    botao.Enabled = !ocupado;
 
                     botao.Click += (sender, e) =>
                     {
@@ -77,21 +96,42 @@ namespace CinemaApp.Cadastros
                         else
                         {
                             _selecionados.Add(codigo);
-                            botao.BackColor = Color.DodgerBlue;
+                            botao.BackColor = Color.CornflowerBlue;
                         }
                     };
 
-                    painel.Controls.Add(botao, j, i);
+                    tabela.Controls.Add(botao, j, i);
                 }
             }
 
+            painelPrincipal.Controls.Add(tabela);
+
+            // Centraliza a tabela horizontalmente
+            void Centralizar()
+            {
+                tabela.Left = Math.Max(
+                    0,
+                    (painelPrincipal.ClientSize.Width
+                        - tabela.Width) / 2);
+
+                tabela.Top = 10;
+            }
+
+            painelPrincipal.Resize += (sender, e) =>
+                Centralizar();
+
+            tabela.SizeChanged += (sender, e) =>
+                Centralizar();
+
+            // Botão fixo no rodapé
             var confirmar = new Button
             {
                 Text = "CONFIRMAR ASSENTOS",
                 Dock = DockStyle.Bottom,
-                Height = 45,
+                Height = 48,
                 BackColor = Color.RoyalBlue,
-                ForeColor = Color.White
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
             };
 
             confirmar.Click += (sender, e) =>
@@ -102,9 +142,7 @@ namespace CinemaApp.Cadastros
                         "Selecione pelo menos um assento!",
                         "Atenção",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-
+                        MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -112,8 +150,13 @@ namespace CinemaApp.Cadastros
                 Close();
             };
 
-            Controls.Add(painel);
+            Controls.Add(painelPrincipal);
             Controls.Add(confirmar);
+
+            // Garante a ordem correta dos controles
+            confirmar.BringToFront();
+
+            Centralizar();
         }
     }
 }

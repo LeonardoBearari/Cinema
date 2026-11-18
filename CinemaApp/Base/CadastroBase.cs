@@ -124,7 +124,7 @@ namespace CinemaApp.Base
             throw new NotImplementedException();
         }
 
-        private void LimpaCampos()
+        protected virtual void LimpaCampos()
         {
             IsEditMode = false;
             foreach (var control in tabPageCadastro.Controls)
