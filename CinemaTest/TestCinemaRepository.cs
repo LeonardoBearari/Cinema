@@ -165,6 +165,9 @@ namespace CinemaTest
                 sessao = new Sessao { Id = 2, Filme = filmeGhost, Data = dataSessao2, Preco = 30, Sala = sala2 };
                 db.Sessao.Add(sessao);
 
+                //sessao = new Sessao { Id = 3, Filme = filmePanico, Data = dataSessao3, Preco = 30, Sala = sala3 };
+                //db.Sessao.Add(sessao);
+
                 db.SaveChanges();
             }
         }

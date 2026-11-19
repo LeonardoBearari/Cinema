@@ -13,7 +13,7 @@ namespace CinemaTest
         {
             return new JsonSerializerOptions { WriteIndented = true };
         }
-
+        //mais coisas de teste para as classes do domínio, como Genero, Filme, Sala, Sessao, Ingresso e IngressoItem
         [TestMethod]
         public void TestGenero()
         {
